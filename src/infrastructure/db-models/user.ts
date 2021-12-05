@@ -5,10 +5,9 @@ import {
   IsEmail,
   Model,
   PrimaryKey,
-  Table,
-  ForeignKey
+  Table
 } from 'sequelize-typescript';
-import { UUIDV4, NOW, JSONB } from 'sequelize';
+import { UUIDV4, JSONB } from 'sequelize';
 import { User } from '../../domain/aggregates/user-aggregates/user';
 import { UserPrivilege } from '../../domain/aggregates/user-aggregates/user-privilege';
 
@@ -42,10 +41,6 @@ export class UserDataModel extends Model {
 
   @Column(JSONB)
   public priviledges: Record<UserPrivilege, boolean>;
-
-  @AllowNull(true)
-  @Column
-  public avatar: string;
 
   public static fromDomain(user: User): UserDataModel {
     return new UserDataModel({

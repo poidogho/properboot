@@ -7,10 +7,10 @@ import {
   ForeignKey
 } from 'sequelize-typescript';
 import { STRING } from 'sequelize';
-import { HomeDataModel } from './home';
+import HomeDataModel from './home';
 
-@Table({ tableName: 'WorkflowParticipants', timestamps: true, paranoid: true })
-export class HomeImageDataModel extends Model {
+@Table({ tableName: 'HomeImage', timestamps: true, paranoid: true })
+export default class HomeImageDataModel extends Model {
   @BelongsTo(() => HomeDataModel)
   public home: HomeDataModel;
 

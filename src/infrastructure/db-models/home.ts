@@ -6,16 +6,20 @@ import {
   AllowNull,
   Table,
   HasMany,
-  ForeignKey
+  ForeignKey,
+  BelongsTo
 } from 'sequelize-typescript';
 import { UUIDV4, STRING, NUMBER } from 'sequelize';
 import { UserDataModel } from './user';
-import { HomeImageDataModel } from './home-image';
+import HomeImageDataModel from './home-image';
 
 @Table({ tableName: 'Home', timestamps: true, paranoid: true })
-export class HomeDataModel extends Model {
-  @HasMany(() => HomeDataModel)
+export default class HomeDataModel extends Model {
+  @HasMany(() => HomeImageDataModel)
   public homeImages: HomeImageDataModel[];
+
+  @BelongsTo(() => UserDataModel)
+  public user: UserDataModel;
 
   @Default(UUIDV4)
   @PrimaryKey

@@ -1,6 +1,5 @@
-import { inject, injectable } from 'inversify';
+import { injectable } from 'inversify';
 import { CreateUserRequest } from '../models/api-models/user/create-user-request';
-import { CreateUserResponse } from '../models/api-models/user/create-user-response';
 import { UserService } from '../../domain/services/user-service';
 
 @injectable()
@@ -9,10 +8,10 @@ export class UserHandler {
 
   public async handleCreateUser(
     createUserRequest: CreateUserRequest
-  ): Promise<CreateUserResponse> {
+  ): Promise<string> {
     const createdUser = await this.userService.createUser(
       createUserRequest.toDomain()
     );
-    return CreateUserResponse.fromDomain(createdUser);
+    return createdUser;
   }
 }

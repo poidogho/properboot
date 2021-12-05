@@ -4,8 +4,6 @@ import { IUserRepository } from '../domain/aggregates/user-aggregates/user-repos
 import { UserRepository } from '../infrastructure/repository/user-repository';
 import { UserService } from '../domain/services/user-service';
 import { UserHandler } from '../application/handlers/user-handler';
-import { IPasswordManager } from '../domain/aggregates/user-aggregates/password-manager';
-import { PasswordManager } from '../infrastructure/password-manager';
 
 class AppContainer {
   public container: Container = null;
@@ -14,13 +12,12 @@ class AppContainer {
     this.container = new Container();
   }
 
-  initializeBindngs() {
+  initializeBindings() {
     this.container
       .bind<IUserRepository>(TYPES.UserRepository)
       .to(UserRepository);
     this.container.bind<UserService>(UserService).toSelf();
     this.container.bind<UserHandler>(UserHandler).toSelf();
-    container.bind<IPasswordManager>(TYPES.PasswordManager).to(PasswordManager);
   }
 }
 
