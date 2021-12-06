@@ -4,30 +4,20 @@ import {
   IsOptional,
   IsString,
   IsEmail,
-  IsArray,
-  IsBoolean
+  IsEnum,
+  IsUUID
 } from 'class-validator';
 import { User } from '../../../../domain/aggregates/user-aggregates/user';
-import { UserPrivilege } from '../../../../domain/aggregates/user-aggregates/user-privilege';
 import { APIRequest } from '../api-request';
+import { UserRoles } from '../../../../domain/aggregates/user-aggregates/user-privilege';
 import { Request } from 'express';
-
-class Privileges implements Record<UserPrivilege, boolean> {
-  @IsOptional()
-  @IsBoolean()
-  public seller: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  public buyer: boolean;
-
-  constructor(req: Partial<Record<UserPrivilege, boolean>>) {
-    this.seller = req.seller;
-    this.buyer = req.buyer;
-  }
-}
+import { v4 as UUIDV4 } from 'uuid';
 
 export class CreateUserRequest extends APIRequest {
+  @IsDefined()
+  @IsUUID('4')
+  public id: string;
+
   @IsDefined()
   @IsNotEmpty()
   @IsString()
@@ -51,28 +41,30 @@ export class CreateUserRequest extends APIRequest {
   @IsString()
   public password: string;
 
-  @IsOptional()
-  @IsArray()
-  priviledges: Privileges;
+  @IsDefined()
+  @IsEnum(UserRoles)
+  role: UserRoles;
 
   constructor(req: Request) {
     super();
+    this.id = UUIDV4();
     this.firstname = req.body.firstname;
     this.lastname = req.body.lastname;
+    this.othernames = req.body.othernames;
     this.email = req.body.email;
     this.password = req.body.password;
-    this.priviledges = req.body.privileges
-      ? new Privileges(req.body.privileges)
-      : undefined;
+    this.role = req.body.role as UserRoles;
   }
 
   public toDomain(): User {
     return new User({
+      id: this.id,
       firstname: this.firstname,
       lastname: this.lastname,
+      othernames: this.othernames,
       password: this.password,
       email: this.email,
-      priviledges: this.priviledges
+      role: this.role
     });
   }
 }

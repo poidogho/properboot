@@ -18,6 +18,11 @@ const sequelize = new Sequelize({
   password: config.db.password,
   host: config.db.hostMaster,
   storage: ':memory:',
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  },
   models: [Path.join(__dirname, './infrastructure/db-models/')]
 });
 

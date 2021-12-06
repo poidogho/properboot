@@ -1,4 +1,3 @@
-import { UserPrivilege } from './user-privilege';
 export type UserParameters = {
   id?: string;
   firstname: string;
@@ -6,7 +5,7 @@ export type UserParameters = {
   othernames?: string;
   email: string;
   password?: string;
-  priviledges?: Partial<Record<UserPrivilege, boolean>>;
+  role: string;
 };
 
 export class User {
@@ -16,7 +15,7 @@ export class User {
   public readonly othernames: string;
   public readonly email: string;
   public readonly password: string;
-  public readonly priviledges: Partial<Record<UserPrivilege, boolean>>;
+  public readonly role: string;
 
   constructor(parameter: UserParameters) {
     this.id = parameter.id;
@@ -25,7 +24,7 @@ export class User {
     this.othernames = parameter.othernames;
     this.email = parameter.email;
     this.password = parameter.password;
-    this.priviledges = parameter.priviledges;
+    this.role = parameter.role;
   }
 
   public builder(): UserBuilder {
@@ -62,6 +61,11 @@ export class UserBuilder {
 
   public setPassword(password: string) {
     this.parameters.password = password;
+    return this;
+  }
+
+  public setRole(role: string) {
+    this.parameters.role = role;
     return this;
   }
 

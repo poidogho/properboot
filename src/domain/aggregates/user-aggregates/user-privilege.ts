@@ -1,4 +1,5 @@
-export enum UserPrivilege {
+export enum UserRoles {
   SELLER = 'seller',
-  BUYER = 'buyer'
+  BUYER = 'buyer',
+  ADMIN = 'admin'
 }

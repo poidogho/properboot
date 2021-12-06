@@ -12,7 +12,7 @@ const {
 export const config = Object.freeze({
   port: Number(PORT || 8080),
   jwtSecret: JWTSECRET || 'properboot',
-  dbMigrate: true,
+  dbMigrate: false,
   db: {
     name: POSTGRES_DATABASE || 'd52lt01kch9i0n',
     port: Number(POSTGRES_PORT || 5432),

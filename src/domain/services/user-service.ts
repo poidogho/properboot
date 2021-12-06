@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import TYPES from '../../constants/types';
 import { User } from '../aggregates/user-aggregates/user';
-import { UserRepository } from '../../infrastructure/repository/user-repository';
 import { ValidationException } from '../../domain/exceptions/validation-exceptions';
 import { IUserRepository } from '../aggregates/user-aggregates/user-repository-interface';
 import { config } from '../../config/config';
@@ -27,11 +26,12 @@ export class UserService {
       ]);
     }
     const salt = await bcrypt.genSalt(10);
-    userToCreate
+    const userToSave = user
       .builder()
-      .setPassword(await bcrypt.hash(userToCreate.password, salt))
+      .setPassword(await bcrypt.hash(user.password, salt))
       .build();
-    const saveUser = await this.userRepository.createUser(userToCreate);
+    console.log(userToSave, 44444);
+    const saveUser = await this.userRepository.createUser(userToSave);
     const payload = {
       user: {
         id: saveUser.id

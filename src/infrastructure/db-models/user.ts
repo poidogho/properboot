@@ -9,7 +9,6 @@ import {
 } from 'sequelize-typescript';
 import { UUIDV4, JSONB } from 'sequelize';
 import { User } from '../../domain/aggregates/user-aggregates/user';
-import { UserPrivilege } from '../../domain/aggregates/user-aggregates/user-privilege';
 
 @Table({ tableName: 'Users', paranoid: true, timestamps: true })
 export class UserDataModel extends Model {
@@ -39,16 +38,18 @@ export class UserDataModel extends Model {
   @Column
   public password: string;
 
+  @AllowNull(false)
   @Column(JSONB)
-  public priviledges: Record<UserPrivilege, boolean>;
+  public role: string;
 
   public static fromDomain(user: User): UserDataModel {
     return new UserDataModel({
+      id: user.id,
       firstname: user.firstname,
       lastname: user.lastname,
       othernames: user.othernames,
       email: user.email,
-      priviledges: user.priviledges,
+      role: user.role,
       password: user.password
     });
   }
@@ -60,7 +61,7 @@ export class UserDataModel extends Model {
       lastname: this.lastname,
       othernames: this.othernames,
       email: this.email,
-      priviledges: this.priviledges
+      role: this.role
     });
   }
 }
