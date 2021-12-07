@@ -17,6 +17,7 @@ describe(NotificationService.name, () => {
   let notificationRepositoryMock: Typemoq.IMock<INotificationRepository>;
   let notificationService: NotificationService;
   let notification: Notification;
+  let adminId: string;
 
   beforeEach(() => {
     notificationRepositoryMock = Typemoq.Mock.ofType(NotificationRepository);
@@ -25,10 +26,13 @@ describe(NotificationService.name, () => {
     );
 
     notification = new Notification({
+      id: '34444',
       firstname: 'John',
       lastname: 'Doe',
       interest: InterestType.SINGLE
     });
+
+    adminId = '12345';
   });
 
   afterEach(() => {
@@ -37,13 +41,50 @@ describe(NotificationService.name, () => {
   });
 
   describe('get notifications', () => {
-    console.log(notification);
     test('get notifications', () => {
       notificationRepositoryMock
         .setup((mock) => mock.getNotifications())
         .verifiable(Typemoq.Times.once());
 
       const promise = notificationService.getNotifications();
+      return expect(promise).to.be.eventually.be.fulfilled;
+    });
+  });
+
+  describe('create notification', () => {
+    test('create notification', () => {
+      notificationRepositoryMock
+        .setup((mock) => mock.createNotification(notification))
+        .returns(async () => notification)
+        .verifiable(Typemoq.Times.once());
+
+      const promise = notificationService.createNotification(notification);
+      return expect(promise).to.be.eventually.be.fulfilled;
+    });
+  });
+
+  describe('delete notification', () => {
+    test('delete a notification', () => {
+      notificationRepositoryMock
+        .setup((mock) => mock.deleteNotification(notification.id))
+        .verifiable(Typemoq.Times.once());
+      console.log(notificationService);
+      const promise = notificationService.deleteNotification(notification.id);
+      return expect(promise).to.be.eventually.be.fulfilled;
+    });
+  });
+
+  describe('update status', () => {
+    test('update Status of a notification', () => {
+      notificationRepositoryMock
+        .setup((mock) => mock.updateStatus(notification.id, true, adminId))
+        .verifiable(Typemoq.Times.once());
+
+      const promise = notificationService.updateStatus(
+        notification.id,
+        true,
+        adminId
+      );
       return expect(promise).to.be.eventually.be.fulfilled;
     });
   });
