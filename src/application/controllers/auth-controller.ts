@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { controller, httpGet, httpPost } from 'inversify-express-utils';
+import { controller, httpPost } from 'inversify-express-utils';
 import { StatusCodes } from 'http-status-codes';
 import { inject } from 'inversify';
 import { AuthenticationRequest } from '../models/api-models/auth/authentication-request';

@@ -10,7 +10,7 @@ import {
 import { UUIDV4, JSONB } from 'sequelize';
 import { User } from '../../domain/aggregates/user-aggregates/user';
 
-@Table({ tableName: 'Users', paranoid: true, timestamps: true })
+@Table({ tableName: 'User', paranoid: true, timestamps: true })
 export class UserDataModel extends Model {
   @Default(UUIDV4)
   @PrimaryKey

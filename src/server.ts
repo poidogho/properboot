@@ -11,20 +11,22 @@ import pgMigrate from 'node-pg-migrate';
 import { config } from './config/config';
 import { pool } from './config/db-config/db-connectors';
 
-const sequelize = new Sequelize({
-  database: config.db.name,
-  dialect: 'postgres',
-  username: config.db.user,
-  password: config.db.password,
-  host: config.db.hostMaster,
-  storage: ':memory:',
-  dialectOptions: {
-    ssl: {
-      rejectUnauthorized: false
-    }
-  },
-  models: [Path.join(__dirname, './infrastructure/db-models/')]
-});
+const initializeDb = () => {
+  new Sequelize({
+    database: config.db.name,
+    dialect: 'postgres',
+    username: config.db.user,
+    password: config.db.password,
+    host: config.db.hostMaster,
+    storage: ':memory:',
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false
+      }
+    },
+    models: [Path.join(__dirname, './infrastructure/db-models/')]
+  });
+};
 
 const migrateDB = async () => {
   await pgMigrate({
@@ -69,7 +71,8 @@ const start = async () => {
   appContainer.initializeBindings();
   const server = initializeServer();
 
-  sequelize;
+  initializeDb();
+
   if (config.dbMigrate) {
     await migrateDB();
   }

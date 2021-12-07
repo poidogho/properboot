@@ -30,7 +30,7 @@ export class UserService {
       .builder()
       .setPassword(await bcrypt.hash(user.password, salt))
       .build();
-    console.log(userToSave, 44444);
+
     const saveUser = await this.userRepository.createUser(userToSave);
     const payload = {
       user: {

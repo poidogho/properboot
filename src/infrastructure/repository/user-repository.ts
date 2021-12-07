@@ -13,9 +13,7 @@ import { UserQuery } from '../../domain/aggregates/user-aggregates/user-query';
 
 @injectable()
 export class UserRepository implements IUserRepository {
-  constructor() {
-    UserDataModel.removeAttribute('id');
-  }
+  constructor() {}
 
   public async getUser(userId: string): Promise<User> {
     const user = await UserDataModel.findByPk(userId);
@@ -34,11 +32,12 @@ export class UserRepository implements IUserRepository {
       query['where']['lastName'] = userQuery.lastName;
     }
     const userDataModel = await UserDataModel.findOne(query);
-    return userDataModel.toDomain();
+    return userDataModel ? userDataModel.toDomain() : undefined;
   }
 
   public async createUser(user: User): Promise<User> {
-    const userData = await UserDataModel.fromDomain(user).save();
+    let userData = UserDataModel.fromDomain(user);
+    userData = await userData.save();
     return userData.toDomain();
   }
 }

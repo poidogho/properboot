@@ -6,6 +6,7 @@ import {
   IsNumber
 } from 'class-validator';
 import { Home } from '../../../../domain/aggregates/home-aggregates/home';
+import { HomeImage } from '../../../../domain/aggregates/home-aggregates/home-image';
 import { APIRequest } from '../api-request';
 import { Request } from 'express';
 
@@ -43,7 +44,7 @@ export class CreateHomeRequest extends APIRequest {
   @IsDefined()
   @IsNotEmpty()
   @IsArray()
-  public homeImages: string[];
+  public homeImages: HomeImage[];
 
   constructor(req: Request) {
     super();
