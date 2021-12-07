@@ -16,7 +16,7 @@ export class NotificationRepository implements INotificationRepository {
   public async createNotification(
     notification: Notification
   ): Promise<Notification> {
-    let notificationToCreate = NotificationDataModel.fromDomain(notification);
+    const notificationToCreate = NotificationDataModel.fromDomain(notification);
     await notificationToCreate.save();
     return notificationToCreate.toDomain();
   }

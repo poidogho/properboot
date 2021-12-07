@@ -1,12 +1,6 @@
-import {
-  IsDefined,
-  IsNotEmpty,
-  IsString,
-  IsEnum,
-  IsUUID
-} from 'class-validator';
+import { IsDefined, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { Notification } from '../../../../domain/aggregates/notification-aggregates/notification';
-import { InterestType } from '../../../../domain/aggregates/notification-aggregates/interest';
+// import { InterestType } from '../../../../domain/aggregates/notification-aggregates/interest';
 import { APIRequest } from '../api-request';
 import { Request } from 'express';
 import { v4 as UUIDV4 } from 'uuid';

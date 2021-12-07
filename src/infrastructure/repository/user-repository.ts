@@ -13,8 +13,6 @@ import { UserQuery } from '../../domain/aggregates/user-aggregates/user-query';
 
 @injectable()
 export class UserRepository implements IUserRepository {
-  constructor() {}
-
   public async getUser(userId: string): Promise<User> {
     const user = await UserDataModel.findByPk(userId);
     return user ? user.toDomain() : undefined;

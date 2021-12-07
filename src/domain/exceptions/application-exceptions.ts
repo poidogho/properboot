@@ -15,10 +15,10 @@ export abstract class ApplicationException extends Error {
       errorRecords.length > 0 &&
       Object.keys(errorRecords[0]).includes('errorCode')
     ) {
-      return <ErrorRecord[]>errorRecords;
+      return errorRecords as ErrorRecord[];
     }
 
-    return (<ErrorCode[]>errorRecords).map((errorCode: ErrorCode) => {
+    return (errorRecords as ErrorCode[]).map((errorCode: ErrorCode) => {
       return { errorCode: errorCode };
     });
   }

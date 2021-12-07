@@ -16,7 +16,6 @@ export class UpdateAdminRequest extends APIRequest {
   constructor(req: Request) {
     super();
     this.notificationId = req.params.notificationId;
-    //  @ts-ignore
     this.adminId = req.user.id;
   }
 }

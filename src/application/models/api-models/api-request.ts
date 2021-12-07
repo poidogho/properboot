@@ -13,7 +13,7 @@ type ValidateOptions = {
 
 export abstract class APIRequest {
   public async validateInput(options: ValidateOptions = {}) {
-    let errors: ValidationError[] = await validate(this, {
+    const errors: ValidationError[] = await validate(this, {
       skipMissingProperties: true
     });
 
@@ -33,8 +33,8 @@ export abstract class APIRequest {
   }
 
   public definedProperties(): UpdateProperties {
-    let updateObject: UpdateProperties = {};
-    let properties = Object.getOwnPropertyNames(this);
+    const updateObject: UpdateProperties = {};
+    const properties = Object.getOwnPropertyNames(this);
 
     properties.forEach((property: string) => {
       if (this[property] !== undefined) {

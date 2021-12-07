@@ -29,8 +29,8 @@ export class HomeRepository implements IHomeRepository {
 
   public async getHomes(): Promise<Home[]> {
     const homeDataModels = await HomeDataModel.findAll({});
-    const home = homeDataModels.map((home) => home.toDomain());
-    return home;
+    const homes = homeDataModels.map((home) => home.toDomain());
+    return homes;
   }
 
   private async createHomeImages(

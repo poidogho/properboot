@@ -49,7 +49,6 @@ export class CreateHomeRequest extends APIRequest {
   constructor(req: Request) {
     super();
     const { name, price, sqrtFtSize, description, homeImages } = req.body;
-    //  @ts-ignore
     this.authorId = req.user.id;
     this.name = name;
     this.price = price;
