@@ -8,7 +8,6 @@ import HomeImageDataModel from '../db-models/home-image';
 @injectable()
 export class HomeRepository implements IHomeRepository {
   constructor() {
-    HomeDataModel.removeAttribute('id');
     HomeImageDataModel.removeAttribute('id');
   }
 
