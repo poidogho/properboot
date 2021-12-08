@@ -1,6 +1,5 @@
 const {
   PORT,
-  JWTSECRET,
   POSTGRES_DATABASE,
   POSTGRES_HOST,
   POSTGRES_PORT,
@@ -11,7 +10,7 @@ const {
 } = process.env;
 export const config = Object.freeze({
   port: Number(PORT || 30081),
-  jwtSecret: JWTSECRET || 'properboot',
+  jwtSecret: 'properboot',
   dbMigrate: true,
   db: {
     name: POSTGRES_DATABASE || 'd52lt01kch9i0n',

@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { User } from '../../../../domain/aggregates/user-aggregates/user';
 import { APIRequest } from '../api-request';
-import { UserRoles } from '../../../../domain/aggregates/user-aggregates/user-privilege';
+import { UserRole } from '../../../../domain/aggregates/user-aggregates/user-role';
 import { Request } from 'express';
 import { v4 as UUIDV4 } from 'uuid';
 
@@ -42,8 +42,8 @@ export class CreateUserRequest extends APIRequest {
   public password: string;
 
   @IsDefined()
-  @IsEnum(UserRoles)
-  role: UserRoles;
+  @IsEnum(UserRole)
+  role: UserRole;
 
   constructor(req: Request) {
     super();
@@ -53,7 +53,7 @@ export class CreateUserRequest extends APIRequest {
     this.othernames = req.body.othernames;
     this.email = req.body.email;
     this.password = req.body.password;
-    this.role = req.body.role as UserRoles;
+    this.role = req.body.role as UserRole;
   }
 
   public toDomain(): User {

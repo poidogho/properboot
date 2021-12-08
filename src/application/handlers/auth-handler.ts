@@ -13,7 +13,7 @@ export class AuthHandler {
     authenticatRequest: AuthenticationRequest
   ): Promise<string> {
     const { email, password } = authenticatRequest;
-    const userToken = this.authService.login(email, password);
+    const userToken = await this.authService.login(email, password);
     return userToken;
   }
 }

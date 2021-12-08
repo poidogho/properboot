@@ -1,17 +1,17 @@
 import { inject, injectable } from 'inversify';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserRepository } from '../../infrastructure/repository/user-repository';
+import TYPES from '../../constants/types';
 import { User } from '../aggregates/user-aggregates/user';
 import { IUserRepository } from '../aggregates/user-aggregates/user-repository-interface';
-import { config } from 'src/config/config';
+import { config } from '../../config/config';
 import { ValidationException } from '../../domain/exceptions/validation-exceptions';
 import { ErrorCode } from '../../application/models/error-models/error-code';
 
 @injectable()
 export class AuthService {
   constructor(
-    @inject(UserRepository)
+    @inject(TYPES.UserRepository)
     private userRepository: IUserRepository
   ) {}
 
@@ -23,7 +23,7 @@ export class AuthService {
         { errorCode: ErrorCode.USERNAME_OR_PASSWORD_NOT_FOUND }
       ]);
     }
-    const match = await bcrypt.compare(user.password, password);
+    const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
       throw new ValidationException('email or passord IS WRONG', [
@@ -33,7 +33,8 @@ export class AuthService {
 
     const payload = {
       user: {
-        id: user.id
+        id: user.id,
+        role: user.role
       }
     };
     const token = jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 * 24 });

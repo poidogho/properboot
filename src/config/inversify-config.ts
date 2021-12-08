@@ -11,10 +11,12 @@ import { HomeRepository } from '../infrastructure/repository/home-repository';
 import { HomeImageRepository } from '../infrastructure/repository/home-image-repository';
 import { NotificationRepository } from '../infrastructure/repository/notification-repository';
 
+import { AuthService } from '../domain/services/auth-service';
 import { UserService } from '../domain/services/user-service';
 import { HomeService } from '../domain/services/home-service';
 import { NotificationService } from '../domain/services/notification-service';
 
+import { AuthHandler } from '../application/handlers/auth-handler';
 import { UserHandler } from '../application/handlers/user-handler';
 import { HomeHandler } from '../application/handlers/home-handler';
 import { NotificationHandler } from '../application/handlers/notification-handler';
@@ -40,10 +42,12 @@ class AppContainer {
       .bind<IHomeImageRepository>(TYPES.HomeImageRepository)
       .to(HomeImageRepository);
 
+    this.container.bind<AuthService>(AuthService).toSelf();
     this.container.bind<UserService>(UserService).toSelf();
     this.container.bind<HomeService>(HomeService).toSelf();
     this.container.bind<NotificationService>(NotificationService).toSelf();
 
+    this.container.bind<AuthHandler>(AuthHandler).toSelf();
     this.container.bind<UserHandler>(UserHandler).toSelf();
     this.container.bind<HomeHandler>(HomeHandler).toSelf();
     this.container.bind<NotificationHandler>(NotificationHandler).toSelf();

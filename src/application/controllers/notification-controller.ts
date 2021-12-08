@@ -9,8 +9,9 @@ import { Request, Response } from 'express';
 import { CreateNotificationRequest } from '../models/api-models/notification/create-notification-request';
 import { DeleteNotificationRequest } from '../models/api-models/notification/delete-notification-request';
 import { UpdateStatusRequest } from '../models/api-models/notification/update-status-request';
-
+import { AuthorizationMiddleware } from '../middleware/authorization-middleware';
 import { NotificationHandler } from '../handlers/notification-handler';
+import { UserRole } from '../../domain/aggregates/user-aggregates/user-role';
 
 @controller('/notifications')
 export class NoticationController {
@@ -33,7 +34,7 @@ export class NoticationController {
     res.status(200).json(notifications);
   }
 
-  @httpPut('/:notificationId')
+  @httpPut('/:notificationId', AuthorizationMiddleware(UserRole.ADMIN))
   public async updateStatus(req: Request, res: Response) {
     const validateReq = await new UpdateStatusRequest(req).validateInput();
     await this.notificationHandler.handleUpdateStatus(validateReq);

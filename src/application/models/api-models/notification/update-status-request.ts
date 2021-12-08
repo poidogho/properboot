@@ -22,5 +22,6 @@ export class UpdateStatusRequest extends APIRequest {
     this.notificationId = req.params.notificationId;
     this.confirmed = req.body.confirmed;
     this.adminId = req.user.id;
+    console.log(req.user);
   }
 }

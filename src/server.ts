@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import './application/controllers/user-controllers';
+import './application/controllers/auth-controller';
 import './application/controllers/notification-controller';
 
 import Express from 'express';

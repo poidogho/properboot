@@ -61,6 +61,7 @@ export class UserDataModel extends Model {
       lastname: this.lastname,
       othernames: this.othernames,
       email: this.email,
+      password: this.password,
       role: this.role
     });
   }

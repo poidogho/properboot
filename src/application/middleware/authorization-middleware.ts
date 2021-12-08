@@ -1,28 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { UserType } from '../../domain/aggregates/user-aggregates/user-type';
+import { UserRole } from '../../domain/aggregates/user-aggregates/user-role';
 import { UnauthorizedAccessException } from '../exceptions/unauthorized-access-exception';
 import { ErrorCode } from '../models/error-models/error-code';
-// const authorizationMiddleware = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ): void => {
-//   const token = req.header('x-auth-token');
-//   if (!token) {
-//     res.status(401).json({ msg: 'you do not have the right authorization' });
-//   } else {
-//     try {
-//       const decoded = jwt.verify(token, '');
-//       req.user = (decoded as any).user;
-//       next();
-//     } catch (error) {
-//       res.status(401).json({ msg: 'invalid token' });
-//     }
-//   }
-// };
-const authorizationMiddleware = (userType: UserType) => {
-  console.log(userType);
+import { config } from '../../config/config';
+
+const authorizationMiddleware = (userPrivilege: UserRole) => {
   return async (req: Request, _res: Response, next: NextFunction) => {
     try {
       const token = req.header('x-auth-token');
@@ -32,9 +15,9 @@ const authorizationMiddleware = (userType: UserType) => {
           [ErrorCode.USER_NOT_AUTHORIZED]
         );
       } else {
-        const decoded = jwt.verify(token, '');
+        const decoded = jwt.verify(token, config.jwtSecret);
         req.user = (decoded as any).user;
-        if (req.user.role !== 'admin') {
+        if (req.user.role !== userPrivilege) {
           throw new UnauthorizedAccessException(
             `User don't have the required privilege`,
             [ErrorCode.USER_NOT_AUTHORIZED]

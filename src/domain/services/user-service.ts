@@ -16,7 +16,7 @@ export class UserService {
   ) {}
 
   public async createUser(user: User): Promise<string> {
-    const userToCreate = await this.userRepository.getUserByAttribute({
+    let userToCreate = await this.userRepository.getUserByAttribute({
       email: user.email
     });
 
@@ -26,19 +26,17 @@ export class UserService {
       ]);
     }
     const salt = await bcrypt.genSalt(10);
-    const userToSave = user
-      .builder()
-      .setPassword(await bcrypt.hash(user.password, salt))
-      .build();
-
-    const saveUser = await this.userRepository.createUser(userToSave);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    console.log(hashedPassword);
+    userToCreate = user.builder().setPassword(hashedPassword).build();
+    console.log(userToCreate);
+    const saveUser = await this.userRepository.createUser(userToCreate);
     const payload = {
       user: {
         id: saveUser.id
       }
     };
     const token = jwt.sign(payload, config.jwtSecret, { expiresIn: 3600 * 24 });
-
     return token;
   }
 }
