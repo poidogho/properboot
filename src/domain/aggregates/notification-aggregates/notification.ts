@@ -3,6 +3,7 @@ export type NotificationParameters = {
   firstname: string;
   lastname: string;
   interest: string;
+  viewingTime: Date;
   confirmed?: boolean;
   adminId?: string;
 };
@@ -12,6 +13,7 @@ export class Notification {
   public readonly firstname: string;
   public readonly lastname: string;
   public readonly interest: string;
+  public readonly viewingTime: Date;
   public readonly confirmed: boolean;
   public readonly adminId: string;
 
@@ -20,6 +22,7 @@ export class Notification {
     this.firstname = parameter.firstname;
     this.lastname = parameter.lastname;
     this.interest = parameter.interest;
+    this.viewingTime = parameter.viewingTime;
     this.confirmed = parameter.confirmed;
     this.adminId = parameter.adminId;
   }

@@ -42,6 +42,10 @@ export default class NotificationDataModel extends Model {
   })
   public interest: string;
 
+  @AllowNull(false)
+  @Column
+  public viewingTime: Date;
+
   @Column
   public confirmed: boolean;
 
@@ -66,6 +70,7 @@ export default class NotificationDataModel extends Model {
       firstname: this.firstname,
       lastname: this.lastname,
       interest: this.interest,
+      viewingTime: this.viewingTime,
       confirmed: this.confirmed,
       adminId: this.adminId
     });

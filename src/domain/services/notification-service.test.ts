@@ -4,6 +4,7 @@ import 'jest';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import * as Typemoq from 'typemoq';
+import { datatype } from 'faker';
 import { NotificationRepository } from '../../infrastructure/repository/notification-repository';
 import { INotificationRepository } from '../aggregates/notification-aggregates/notification-repository-interface';
 import { InterestType } from '../aggregates/notification-aggregates/interest';
@@ -26,13 +27,14 @@ describe(NotificationService.name, () => {
     );
 
     notification = new Notification({
-      id: '34444',
+      id: datatype.uuid(),
       firstname: 'John',
       lastname: 'Doe',
-      interest: InterestType.SINGLE
+      interest: InterestType.SINGLE,
+      viewingTime: new Date()
     });
 
-    adminId = '12345';
+    adminId = datatype.uuid();
   });
 
   afterEach(() => {

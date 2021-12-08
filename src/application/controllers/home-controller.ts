@@ -17,7 +17,7 @@ export class HomeController {
   }
 
   @httpGet('/')
-  public async getHomes(req: Request, res: Response) {
+  public async getHomes(_req: Request, res: Response) {
     const homes = await this.homeHandler.handleGetHomes();
     res.status(200).json(homes);
   }

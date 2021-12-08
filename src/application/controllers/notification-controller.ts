@@ -27,7 +27,7 @@ export class NoticationController {
   }
 
   @httpGet('/')
-  public async getNotifications(req: Request, res: Response) {
+  public async getNotifications(_req: Request, res: Response) {
     const notifications =
       await this.notificationHandler.handleGetNotifications();
     res.status(200).json(notifications);

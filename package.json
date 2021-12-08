@@ -8,8 +8,8 @@
     "test": "export NODE_ENV=test && npm run lint && jest --verbose --no-cache",
     "test-coverage": "export NODE_ENV=test jest --verbose --no-cache --coverage",
     "start:build": "tsc -w",
-    "start:run": "nodemon dist/server.js",
-    "start:prod": "node dist/server.js",
+    "start:run": "nodemon dist/src/server.js",
+    "start:prod": "node dist/src/server.js",
     "start": "concurrently npm:start:*"
   },
   "repository": {
