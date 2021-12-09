@@ -10,7 +10,6 @@ export class UserController {
 
   @httpPost('/')
   public async createUser(req: Request, res: Response) {
-    console.log('method called', req.body);
     const validateReq = await new CreateUserRequest(req).validateInput();
     const createdUser = await this.userHandler.handleCreateUser(validateReq);
     res.status(200).json(createdUser);

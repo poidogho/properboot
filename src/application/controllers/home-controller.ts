@@ -2,13 +2,15 @@ import { controller, httpPost, httpGet } from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { CreateHomeRequest } from '../models/api-models/home/create-home-request';
 import { GetHomeRequest } from '../models/api-models/home/get-home-request';
+import { AuthorizationMiddleware } from '../middleware/authorization-middleware';
+import { UserRole } from '../../domain/aggregates/user-aggregates/user-role';
 import { HomeHandler } from '../handlers/home-handler';
 
 @controller('/homes')
 export class HomeController {
   constructor(private homeHandler: HomeHandler) {}
 
-  @httpPost('/')
+  @httpPost('/', AuthorizationMiddleware(UserRole.USER))
   public async createHome(req: Request, res: Response) {
     const validateReq = await new CreateHomeRequest(req).validateInput();
     const createdHome = await this.homeHandler.handleCreateHome(validateReq);

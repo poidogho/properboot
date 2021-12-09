@@ -5,7 +5,7 @@ import { UnauthorizedAccessException } from '../exceptions/unauthorized-access-e
 import { ErrorCode } from '../models/error-models/error-code';
 import { config } from '../../config/config';
 
-const authorizationMiddleware = (userPrivilege: UserRole) => {
+const authorizationMiddleware = (userRole: UserRole) => {
   return async (req: Request, _res: Response, next: NextFunction) => {
     try {
       const token = req.header('x-auth-token');
@@ -17,7 +17,7 @@ const authorizationMiddleware = (userPrivilege: UserRole) => {
       } else {
         const decoded = jwt.verify(token, config.jwtSecret);
         req.user = (decoded as any).user;
-        if (req.user.role !== userPrivilege) {
+        if (req.user.role !== userRole) {
           throw new UnauthorizedAccessException(
             `User don't have the required privilege`,
             [ErrorCode.USER_NOT_AUTHORIZED]

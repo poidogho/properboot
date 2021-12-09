@@ -70,7 +70,6 @@ describe(NotificationService.name, () => {
       notificationRepositoryMock
         .setup((mock) => mock.deleteNotification(notification.id))
         .verifiable(Typemoq.Times.once());
-      console.log(notificationService);
       const promise = notificationService.deleteNotification(notification.id);
       return expect(promise).to.be.eventually.be.fulfilled;
     });

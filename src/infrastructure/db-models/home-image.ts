@@ -4,9 +4,11 @@ import {
   AllowNull,
   Column,
   BelongsTo,
-  ForeignKey
+  ForeignKey,
+  PrimaryKey,
+  Default
 } from 'sequelize-typescript';
-import { STRING } from 'sequelize';
+import { STRING, UUIDV4 } from 'sequelize';
 import { HomeImage } from '../../domain/aggregates/home-aggregates/home-image';
 import HomeDataModel from './home';
 
@@ -14,6 +16,11 @@ import HomeDataModel from './home';
 export default class HomeImageDataModel extends Model {
   @BelongsTo(() => HomeDataModel)
   public home: HomeDataModel;
+
+  @Default(UUIDV4)
+  @PrimaryKey
+  @Column
+  public id: string;
 
   @AllowNull(false)
   @Column({ type: STRING })
@@ -24,15 +31,17 @@ export default class HomeImageDataModel extends Model {
   @Column({ type: STRING })
   public imageUrl: string;
 
-  public static fromDomain(home: HomeImage): HomeImageDataModel {
+  public static fromDomain(homeImage: HomeImage): HomeImageDataModel {
     return new HomeImageDataModel({
-      homeId: home.homeId,
-      imageUrl: home.imageUrl
+      id: homeImage.id,
+      homeId: homeImage.homeId,
+      imageUrl: homeImage.imageUrl
     });
   }
 
   public toDomain(): HomeImage {
     return {
+      id: this.id,
       homeId: this.homeId,
       imageUrl: this.imageUrl
     };

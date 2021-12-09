@@ -5,13 +5,22 @@ import {
   IsEmail,
   Model,
   PrimaryKey,
-  Table
+  Table,
+  HasMany
 } from 'sequelize-typescript';
-import { UUIDV4, JSONB } from 'sequelize';
+import { UUIDV4 } from 'sequelize';
+import HomeDataModel from './home';
 import { User } from '../../domain/aggregates/user-aggregates/user';
+import NotificationDataModel from './notification';
 
 @Table({ tableName: 'User', paranoid: true, timestamps: true })
 export class UserDataModel extends Model {
+  @HasMany(() => HomeDataModel)
+  public homes: HomeDataModel[];
+
+  @HasMany(() => NotificationDataModel)
+  public notifications: NotificationDataModel[];
+
   @Default(UUIDV4)
   @PrimaryKey
   @Column
@@ -39,7 +48,7 @@ export class UserDataModel extends Model {
   public password: string;
 
   @AllowNull(false)
-  @Column(JSONB)
+  @Column
   public role: string;
 
   public static fromDomain(user: User): UserDataModel {

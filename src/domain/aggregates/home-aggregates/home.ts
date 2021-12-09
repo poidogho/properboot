@@ -9,6 +9,7 @@ type HomeParameters = {
   sqrFtSize: number;
   description: string;
   homeImages: HomeImage[];
+  approved?: boolean;
 };
 
 export class Home {
@@ -20,6 +21,7 @@ export class Home {
   public readonly sqrFtSize: number;
   public readonly description: string;
   public readonly homeImages: HomeImage[];
+  public readonly approved: boolean;
 
   constructor(parameters: HomeParameters) {
     this.id = parameters.id;
@@ -30,6 +32,7 @@ export class Home {
     this.sqrFtSize = parameters.sqrFtSize;
     this.description = parameters.description;
     this.homeImages = parameters.homeImages;
+    this.approved = parameters.approved;
   }
 
   public builder(): HomeBuilder {
@@ -71,6 +74,11 @@ export class HomeBuilder {
 
   public setHomeImages(homeImages: HomeImage[]) {
     this.parameters.homeImages = homeImages;
+    return this;
+  }
+
+  public setApproved(approved: boolean) {
+    this.parameters.approved = approved;
     return this;
   }
 

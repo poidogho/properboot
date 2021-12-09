@@ -9,7 +9,7 @@ import {
   ForeignKey,
   BelongsTo
 } from 'sequelize-typescript';
-import { UUIDV4, STRING, NUMBER } from 'sequelize';
+import { UUIDV4, STRING, NUMBER, BOOLEAN } from 'sequelize';
 import { UserDataModel } from './user';
 import HomeImageDataModel from './home-image';
 import { Home } from '../../domain/aggregates/home-aggregates/home';
@@ -27,7 +27,6 @@ export default class HomeDataModel extends Model {
   @Column
   public id: string;
 
-  @Default(UUIDV4)
   @ForeignKey(() => UserDataModel)
   @Column
   public authorId: string;
@@ -52,6 +51,9 @@ export default class HomeDataModel extends Model {
   @Column({ type: STRING })
   public description: string;
 
+  @Column({ type: BOOLEAN })
+  public approved: boolean;
+
   public static fromDomain(home: Home): HomeDataModel {
     return new HomeDataModel({
       id: home.id,
@@ -61,19 +63,22 @@ export default class HomeDataModel extends Model {
       address: home.address,
       sqrFtSize: home.sqrFtSize,
       description: home.description,
-      homeImages: home.homeImages
+      homeImages: home.homeImages,
+      approved: home.approved
     });
   }
 
   public toDomain(): Home {
     return new Home({
+      id: this.id,
       authorId: this.authorId,
       name: this.name,
       price: this.price,
       address: this.address,
       sqrFtSize: this.sqrFtSize,
       description: this.description,
-      homeImages: this.homeImages
+      homeImages: this.homeImages,
+      approved: this.approved
     });
   }
 }

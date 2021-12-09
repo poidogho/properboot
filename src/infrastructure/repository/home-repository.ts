@@ -6,7 +6,8 @@ import HomeDataModel from '../db-models/home';
 @injectable()
 export class HomeRepository implements IHomeRepository {
   public async createHome(home: Home): Promise<Home> {
-    const homeDataModel = await HomeDataModel.fromDomain(home).save();
+    let homeDataModel = HomeDataModel.fromDomain(home);
+    homeDataModel = await homeDataModel.save();
     return homeDataModel.toDomain();
   }
 
