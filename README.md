@@ -6,7 +6,7 @@ Properboot application which is properly backend challenge built with [TypeScrip
 
 ## API DOCUMENTATION
 
-[OpenApi Doc](https://properboot.herokuapp.com/api-docs/)
+[Properboot API Doc](https://properboot.herokuapp.com/api-docs/)
 <br />
 ![erd](./images/doc1.png)
 <br />
