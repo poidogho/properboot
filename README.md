@@ -4,6 +4,17 @@
 
 Properboot application which is properly backend challenge built with [TypeScript](https://github.com/Microsoft/TypeScript) and [Nodejs](https://nodejs.org/en/)
 
+## Key Project Functionalities
+
+```sh
+# Ability to create users, hash passwords and pass JWT tokens to UI
+# Ability of users to add homes to app subject to approval by an admin user
+# Middleware to protest routes from unauthorized access
+# Ability of user to book a viewing appointment - JUST DB ENTRIES
+# Ability of admin to approve or deny added homes or appointments
+
+```
+
 ## Project structure
 
 The project contains a `src` directory which is where majority of the application resides with an entry point `server.ts` at the root directory of the src folder
@@ -64,3 +75,11 @@ npm run test
 ## Entity Relationship Diagram
 
 ![erd](./images/erd.png)
+
+## Posible test cases that could have been written
+
+```sh
+# More test cases with various edge cases in the service layer.
+# More repository tests.
+# More test on the request body.
+```
