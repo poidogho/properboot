@@ -3,10 +3,11 @@ import {
   IsDefined,
   IsNotEmpty,
   IsString,
-  IsUUID
+  IsUUID,
+  IsEnum
 } from 'class-validator';
 import { Notification } from '../../../../domain/aggregates/notification-aggregates/notification';
-// import { InterestType } from '../../../../domain/aggregates/notification-aggregates/interest';
+import { InterestType } from '../../../../domain/aggregates/notification-aggregates/interest-type';
 import { APIRequest } from '../api-request';
 import { Request } from 'express';
 import { v4 as UUIDV4 } from 'uuid';
@@ -27,9 +28,8 @@ export class CreateNotificationRequest extends APIRequest {
   public lastname: string;
 
   @IsDefined()
-  @IsNotEmpty()
-  @IsString()
-  public interest: string;
+  @IsEnum(InterestType)
+  public interest: InterestType;
 
   @IsDefined()
   @IsNotEmpty()
@@ -38,11 +38,12 @@ export class CreateNotificationRequest extends APIRequest {
 
   constructor(req: Request) {
     super();
+    const { firstname, lastname, interest, viewingTime } = req.body;
     this.id = UUIDV4();
-    this.firstname = req.body.firstname;
-    this.lastname = req.body.lastname;
-    this.interest = req.body.interest;
-    this.viewingTime = req.body.viewingTime;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.interest = interest as InterestType;
+    this.viewingTime = new Date(viewingTime);
   }
 
   public toDomain(): Notification {

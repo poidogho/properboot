@@ -7,7 +7,7 @@ import * as Typemoq from 'typemoq';
 import { datatype } from 'faker';
 import { NotificationRepository } from '../../infrastructure/repository/notification-repository';
 import { INotificationRepository } from '../aggregates/notification-aggregates/notification-repository-interface';
-import { InterestType } from '../aggregates/notification-aggregates/interest';
+import { InterestType } from '../aggregates/notification-aggregates/interest-type';
 import { Notification } from '../aggregates/notification-aggregates/notification';
 import { NotificationService } from './notification-service';
 

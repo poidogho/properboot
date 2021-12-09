@@ -11,7 +11,7 @@ import {
 import { ENUM, UUIDV4 } from 'sequelize';
 import { UserDataModel } from './user';
 import { Notification } from '../../domain/aggregates/notification-aggregates/notification';
-import { InterestType } from '../../domain/aggregates/notification-aggregates/interest';
+import { InterestType } from '../../domain/aggregates/notification-aggregates/interest-type';
 
 @Table({ tableName: 'Notification', timestamps: true, paranoid: true })
 export default class NotificationDataModel extends Model {
@@ -60,7 +60,8 @@ export default class NotificationDataModel extends Model {
       lastname: notification.lastname,
       interest: notification.interest,
       confirm: notification.confirmed,
-      adminId: notification.adminId
+      adminId: notification.adminId,
+      viewingTime: notification.viewingTime
     });
   }
 
