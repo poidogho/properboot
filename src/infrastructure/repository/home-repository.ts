@@ -14,7 +14,7 @@ export class HomeRepository implements IHomeRepository {
   public async getHome(homeId: string): Promise<Home> {
     const homeDataModel = await HomeDataModel.findOne({
       where: {
-        homeId
+        id: homeId
       }
     });
     return homeDataModel.toDomain();
