@@ -31,4 +31,12 @@ export class HomeRepository implements IHomeRepository {
     const homes = homeDataModels.map((home) => home.toDomain());
     return homes;
   }
+
+  public async updatehomeStatus(
+    homeId: string,
+    approved: boolean
+  ): Promise<void> {
+    console.log('here');
+    await HomeDataModel.update({ approved }, { where: { id: homeId } });
+  }
 }

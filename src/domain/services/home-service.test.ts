@@ -99,4 +99,15 @@ describe(HomeService.name, () => {
       return expect(promise).to.be.eventually.be.fulfilled;
     });
   });
+
+  describe('update status', () => {
+    test('update Status of a home', () => {
+      homeRepositoryMock
+        .setup((mock) => mock.updatehomeStatus(home.id, true))
+        .verifiable(Typemoq.Times.once());
+
+      const promise = homeService.updateHomeStatus(home.id, true);
+      return expect(promise).to.be.eventually.be.fulfilled;
+    });
+  });
 });

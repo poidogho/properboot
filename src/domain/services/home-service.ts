@@ -39,4 +39,11 @@ export class HomeService {
     const homes = await this.homeRepository.getHomes();
     return homes;
   }
+
+  public async updateHomeStatus(
+    homeId: string,
+    approved: boolean
+  ): Promise<void> {
+    await this.homeRepository.updatehomeStatus(homeId, approved);
+  }
 }
