@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
 import { CreateHomeRequest } from '../models/api-models/home/create-home-request';
+import { GetHomesResponse } from '../models/api-models/home/get-homes-response';
 import { GetHomeRequest } from '../models/api-models/home/get-home-request';
 import { HomeService } from '../../domain/services/home-service';
 import { Home } from '../../domain/aggregates/home-aggregates/home';
@@ -22,8 +23,8 @@ export class HomeHandler {
     return home;
   }
 
-  public async handleGetHomes(): Promise<Home[]> {
+  public async handleGetHomes(): Promise<GetHomesResponse[]> {
     const homes = await this.homeService.getHomes();
-    return homes;
+    return homes.map((home) => GetHomesResponse.fromDomain(home));
   }
 }
