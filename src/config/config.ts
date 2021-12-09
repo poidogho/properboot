@@ -9,7 +9,7 @@ const {
   POSTGRES_MAX_CONNS
 } = process.env;
 export const config = Object.freeze({
-  port: Number(PORT || 30081),
+  port: Number(PORT || 30082),
   jwtSecret: 'properboot',
   dbMigrate: true,
   db: {

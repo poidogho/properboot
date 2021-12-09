@@ -1,0 +1,332 @@
+openapi: 3.0.0
+info:
+  title: ProperBoot API Documentation
+  description: Simple Express Server that performs CRUD operations on property objects in fulfilment of properly challenge
+  contact:
+    name: Odafe Idogho
+    email: poidogho@yahoo.com
+  version: 1.0.0
+# servers:
+#   - url: http://localhost:30080
+#   - url: http://localhost:30080
+tags:
+  - name: "homes"
+    description: "CRUD operations on the home model"
+  - name: "notifications"
+    description: "CRUD operations on the notification model"
+  - name: "users"
+    description: "API call to create a user"
+  - name: "auth"
+    description: "Authentication request for login in"
+paths:
+  /homes:
+    post:
+      tags:
+        - "homes"
+      summary: "Adds a new home to the collection of homes"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/home"
+      responses:
+        201:
+          description: Successfully screated
+          content:
+            application/json:
+              schema:
+                items:
+                  properties:
+                    name:
+                      type: string
+                      example: beautiful home
+                    price:
+                      type: number
+                      example: 500000
+                    address:
+                      type: string
+                      example: "200 canada road, toronto"
+                    sqrtFtSize:
+                      type: number
+                      example: 5000
+                    description:
+                      type: string
+                      example: "great home"
+                    homeImages:
+                      type: array
+                      example: ["home url1", "home url2"]
+    description: Get all homes that are approved
+    get:
+      tags:
+        - "homes"
+      summary: "Get all homes that are approved that are approved for display"
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/homes"
+  /homes/{homeId}:
+    description: Get a specific home
+    get:
+      tags:
+        - "homes"
+      summary: "Get a specific home"
+      parameters:
+        - in: path
+          name: homeId
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/home"
+    put:
+      tags:
+        - "homes"
+      summary: "Operation to approve a home"
+      parameters:
+        - in: path
+          name: homeId
+          required: true
+          schema:
+            type: integer
+        # - in: body
+        #   name: approved
+        #   required: true
+        #   schema:
+        #     type: boolean
+      responses:
+        200:
+          description: Success Response
+  /notifications:
+    post:
+      tags:
+        - "notifications"
+      summary: "Adds a new notification"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/home"
+      responses:
+        201:
+          description: Successfully screated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/notification"
+    get:
+      tags:
+        - "notifications"
+      summary: "Get all notifications"
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/notifications"
+  /notifications/{notificationId}:
+    put:
+      tags:
+        - "notifications"
+      summary: "Operation to approve a home"
+      parameters:
+        - in: path
+          name: notificationId
+          required: true
+          schema:
+            type: integer
+        # - in: body
+        #   name: approved
+        #   required: true
+        #   schema:
+        #     type: boolean
+      responses:
+        200:
+          description: Success Response
+    /notifications:
+    post:
+      tags:
+        - "notifications"
+      summary: "Adds a new notification"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/home"
+      responses:
+        201:
+          description: Successfully screated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/notification"
+    get:
+      tags:
+        - "notifications"
+      summary: "Get all notifications"
+      responses:
+        200:
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/notifications"
+  /users:
+    post:
+      tags:
+        - "users"
+      summary: "Adds a new User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        201:
+          description: Successfully screated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+  /auth:
+    post:
+      tags:
+        - "auth"
+      summary: "User Login"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/auth"
+      responses:
+        201:
+          description: Successfully screated
+
+components:
+  schemas:
+    home:
+      type: object
+      properties:
+        name:
+          type: string
+          example: beautiful home
+        price:
+          type: number
+          example: 500000
+        address:
+          type: string
+          example: "200 canada road, toronto"
+        sqrtFtSize:
+          type: number
+          example: 5000
+        description:
+          type: string
+          example: "great home"
+        homeImages:
+          type: array
+          items:
+            properties:
+              name:
+                type: string
+                example: home url
+    homes:
+      type: array
+      items:
+        properties:
+          name:
+            type: string
+            example: beautiful home
+          price:
+            type: number
+            example: 500000
+          address:
+            type: string
+            example: "200 canada road, toronto"
+          sqrtFtSize:
+            type: number
+            example: 5000
+          description:
+            type: string
+            example: "great home"
+          homeImages:
+            type: array
+            items:
+              properties:
+                name:
+                  type: string
+                  example: home url
+    notification:
+      type: object
+      properties:
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Doe
+        interest:
+          type: string
+          example: single
+        viewingTime:
+          type: string
+          example: date
+        confirmed:
+          type: boolean
+          example: true
+    notifications:
+      type: array
+      items:
+        properties:
+          firstname:
+            type: string
+            example: John
+          lastname:
+            type: string
+            example: Doe
+          interest:
+            type: string
+            example: single
+          viewingTime:
+            type: string
+            example: date
+          confirmed:
+            type: boolean
+            example: true
+    user:
+      type: object
+      properties:
+        firstname:
+          type: string
+          example: John
+        lastname:
+          type: string
+          example: Doe
+        othernames:
+          type: string
+          example: stan
+        email:
+          type: string
+          example: stan
+        password:
+          type: string
+          example: stan
+        role:
+          type: string
+          example: stan
+    auth:
+      type: object
+      properties:
+        email:
+          type: string
+          example: stan
+        password:
+          type: string
+          example: stan

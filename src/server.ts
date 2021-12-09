@@ -5,14 +5,19 @@ import './application/controllers/auth-controller';
 import './application/controllers/notification-controller';
 
 import Express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import { Sequelize } from 'sequelize-typescript';
 import { InversifyExpressServer } from 'inversify-express-utils';
+import YAML from 'yamljs';
 import Path from 'path';
+import appRoot from 'app-root-path';
 import { appContainer, container } from './config/inversify-config';
 import { StatusCodes } from 'http-status-codes';
 import pgMigrate from 'node-pg-migrate';
 import { config } from './config/config';
 import { pool } from './config/db-config/db-connectors';
+
+const openApi = YAML.load(appRoot + '/swagger.yml');
 
 const initializeDb = () => {
   new Sequelize({
@@ -65,6 +70,7 @@ const initializeServer = () => {
   server.setConfig((app) => {
     app.use(Express.urlencoded({ extended: true }));
     app.use(Express.json({ limit: '5mb' }));
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApi));
   });
 
   return server;
