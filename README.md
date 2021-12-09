@@ -4,6 +4,14 @@
 
 Properboot application which is properly backend challenge built with [TypeScript](https://github.com/Microsoft/TypeScript) and [Nodejs](https://nodejs.org/en/)
 
+## API DOCUMENTATION
+
+[OpenApi Doc](https://properboot.herokuapp.com/api-docs/)
+<br />
+![erd](./images/doc1.png)
+<br />
+![erd](./images/doc2.png)
+
 ## Key Project Functionalities
 
 ```sh
