@@ -38,7 +38,6 @@ let HomeRepository = class HomeRepository {
         return homes;
     }
     async updatehomeStatus(homeId, approved) {
-        console.log('here');
         await home_1.default.update({ approved }, { where: { id: homeId } });
     }
 };

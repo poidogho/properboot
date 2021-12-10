@@ -36,7 +36,6 @@ export class HomeRepository implements IHomeRepository {
     homeId: string,
     approved: boolean
   ): Promise<void> {
-    console.log('here');
     await HomeDataModel.update({ approved }, { where: { id: homeId } });
   }
 }
