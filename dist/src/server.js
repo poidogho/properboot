@@ -15,6 +15,7 @@ const inversify_express_utils_1 = require("inversify-express-utils");
 const yamljs_1 = __importDefault(require("yamljs"));
 const path_1 = __importDefault(require("path"));
 const app_root_path_1 = __importDefault(require("app-root-path"));
+const cors_1 = __importDefault(require("cors"));
 const inversify_config_1 = require("./config/inversify-config");
 const http_status_codes_1 = require("http-status-codes");
 const node_pg_migrate_1 = __importDefault(require("node-pg-migrate"));
@@ -68,6 +69,7 @@ const initializeServer = () => {
     server.setConfig((app) => {
         app.use(express_1.default.urlencoded({ extended: true }));
         app.use(express_1.default.json({ limit: '5mb' }));
+        app.use((0, cors_1.default)());
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(openApi));
     });
     return server;

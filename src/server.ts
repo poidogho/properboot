@@ -11,6 +11,7 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 import YAML from 'yamljs';
 import Path from 'path';
 import appRoot from 'app-root-path';
+import cors from 'cors';
 import { appContainer, container } from './config/inversify-config';
 import { StatusCodes } from 'http-status-codes';
 import pgMigrate from 'node-pg-migrate';
@@ -70,6 +71,7 @@ const initializeServer = () => {
   server.setConfig((app) => {
     app.use(Express.urlencoded({ extended: true }));
     app.use(Express.json({ limit: '5mb' }));
+    app.use(cors());
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApi));
   });
 
