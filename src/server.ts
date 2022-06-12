@@ -17,6 +17,16 @@ import { StatusCodes } from 'http-status-codes';
 import pgMigrate from 'node-pg-migrate';
 import { config } from './config/config';
 import { pool } from './config/db-config/db-connectors';
+// import { v4 as UUIDV4 } from 'uuid';
+// import { City } from './domain/aggregates/city-aggregates/city';
+// import { faker } from '@faker-js/faker';
+// import {
+//   Property,
+//   PropertyType,
+//   randomPropertyType
+// } from './domain/aggregates/property-aggregates/property';
+// import CityDataModel from './infrastructure/db-models/city';
+// import PropertyDataModel from './infrastructure/db-models/property';
 
 const openApi = YAML.load(appRoot + '/swagger.yml');
 

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/poidogho/nodeTypesciptTemplate#readme",
   "dependencies": {
+    "@faker-js/faker": "^7.1.0",
     "@types/app-root-path": "^1.2.4",
     "@types/bcrypt": "^5.0.0",
     "@types/body-parser": "^1.19.0",

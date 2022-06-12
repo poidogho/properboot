@@ -21,6 +21,16 @@ const http_status_codes_1 = require("http-status-codes");
 const node_pg_migrate_1 = __importDefault(require("node-pg-migrate"));
 const config_1 = require("./config/config");
 const db_connectors_1 = require("./config/db-config/db-connectors");
+// import { v4 as UUIDV4 } from 'uuid';
+// import { City } from './domain/aggregates/city-aggregates/city';
+// import { faker } from '@faker-js/faker';
+// import {
+//   Property,
+//   PropertyType,
+//   randomPropertyType
+// } from './domain/aggregates/property-aggregates/property';
+// import CityDataModel from './infrastructure/db-models/city';
+// import PropertyDataModel from './infrastructure/db-models/property';
 const openApi = yamljs_1.default.load(app_root_path_1.default + '/swagger.yml');
 const initializeDb = () => {
     new sequelize_typescript_1.Sequelize({
